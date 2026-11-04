@@ -1,7 +1,20 @@
-Copyright (c) 2026 RRR Studios. All rights reserved.
+                    GNU AFFERO GENERAL PUBLIC LICENSE
+                       Version 3, 19 November 2007
 
-This source code and all associated files are proprietary and confidential. 
-Unauthorized copying, modification, distribution, or execution of this software 
-via any medium is strictly prohibited. 
+ Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org>
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
 
-The source code is published on GitHub for archival and compilation purposes only.
+                            Preamble
+
+  The GNU Affero General Public License is a free, copyleft license for
+software and other kinds of works, specifically designed to ensure
+cooperation with the community in the case of network server software.
+
+[... Restul textului complet se aplică automat pe GitHub când alegi șablonul, dar pentru fișierul tău manual este suficient să adaugi și această notă de subsol dedicată jocului tău:]
+
+Development and Copyright (c) 2026 [Numele Tău sau Pseudonimul de Publisher].
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
