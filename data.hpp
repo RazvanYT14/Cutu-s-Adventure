@@ -3,7 +3,7 @@
 #include "iostream"
 #include "fstream"
 #include "windows.h"
-#include "SFML/Graphics.hpp""
+#include <SFML/Graphics.hpp>
 #include <vector>
 #include <array>
 #include <cmath>
@@ -23,7 +23,7 @@
 
 struct Button;
 
-inline float px=20, py=10;
+inline float px=12, py=12;
 
 inline float vx = 0.0f;
 inline float vy = 0.0f;
@@ -34,7 +34,7 @@ inline std::string username;
 
 inline bool isMoving = false;
 
-inline int playerHP = 10;
+inline int playerHP = 3;
 
 inline float tileSize = 40.f;
 

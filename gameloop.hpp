@@ -6,6 +6,9 @@
 
 #include "render.hpp"
 #include "guiRender.hpp"
+#include "tilemap.hpp"
+#include "animation.hpp"
+#include "memory"
 
 inline void meleeActivation(std::optional<sf::Event>& event, sf::Sprite& equippedWeapon, const sf::Texture& equippedSpear, const sf::Texture& equippedSword, sf::Clock& menuClock, sf::RenderWindow& window, const sf::View& guiView, const sf::Sprite& player, const sf::Texture& equippedFists) {
 
@@ -83,20 +86,21 @@ inline void start() {
 
     sf::RenderWindow window;
 
-    sf::VideoMode desktopMode = sf::VideoMode::getDesktopMode();
+    sf::VideoMode gameMode({1600, 900});
 
-    window.create(desktopMode, "Game", sf::Style::None, sf::State::Windowed);
+    window.create(gameMode, "Unnamed RPG Game", sf::State::Windowed);
+
     window.setVerticalSyncEnabled(true);
 
     float zoomFactor = 3.5f;
 
     sf::View view;
     view.setSize(sf::Vector2f({
-        (float)desktopMode.size.x / zoomFactor,
-        (float)desktopMode.size.y / zoomFactor
+        (float)gameMode.size.x / zoomFactor,
+        (float)gameMode.size.y / zoomFactor
     }));
 
-     sf::Texture spearTEX("assets/spearTEX.png");
+    sf::Texture spearTEX("assets/spearTEX.png");
     sf::Texture swordTEX("assets/swordTEX.png");
     sf::Texture shurikenTEX("assets/shurikenTEX.png");
 
@@ -111,8 +115,16 @@ inline void start() {
     guiView.setSize({1280.f, 720.f});
     guiView.setCenter({1280.f / 2.f, 720.f / 2.f});
 
-    sf::Texture playerTEX("assets/playerFrontIdle.png");
+    sf::Texture playerTEX("assets/Idle/idle1.png");
     sf::Sprite player(playerTEX);
+
+    sf::Texture healthBarTEX100("assets/Health100%.png");
+    sf::Texture healthBarTEX66("assets/Health66%.png");
+    sf::Texture healthBarTEX33("assets/Health33%.png");
+    sf::Texture healthBarTEX0("assets/Health0%.png");
+    sf::Sprite healthBar(healthBarTEX100);
+    healthBar.setScale({8.f,8.f});
+    healthBar.setPosition({10.f,480.f});
 
     player.setPosition({px * 40.0f, py * 40.0f});
     player.setOrigin(sf::Vector2f(playerTEX.getSize()) / 2.0f);
@@ -153,10 +165,10 @@ inline void start() {
     settingsStateText.setFillColor(sf::Color::Black);
     settingsStateText.setScale({2.f,2.f});
 
-    static const sf::Texture equippedShuriken("assets/equippedShuriken.png");
-    static const sf::Texture equippedSpear("assets/equippedSpear.png");
-    static const sf::Texture equippedSword("assets/equippedSword.png");
-    static const sf::Texture equippedFists("assets/equippedFists.png");
+    const sf::Texture equippedShuriken("assets/equippedShuriken.png");
+    const sf::Texture equippedSpear("assets/equippedSpear.png");
+    const sf::Texture equippedSword("assets/equippedSword.png");
+    const sf::Texture equippedFists("assets/equippedFists.png");
 
     sf::Sprite equippedWeapon(equippedFists);
 
@@ -165,157 +177,8 @@ inline void start() {
     player.setOrigin({textureSize.x/2.f,textureSize.y/2.f});
     equippedWeapon.setOrigin({textureSize.x/2.f,textureSize.y/2.f});
 
-    static sf::Texture grassTEX("assets/grassTile.png");
-    sf::Sprite grass(grassTEX);
-
-    static sf::Texture grassTEX2("assets/grassTile2.png");
-    sf::Sprite grass2(grassTEX2);
-
-    static sf::Texture stairTEX("assets/stairTile.png");
-    sf::Sprite stair(stairTEX);
-
-    static sf::Texture craftTabTEX("assets/craftingTable.png");
-    sf::Sprite craftingTable(craftTabTEX);
-
-    static sf::Texture spikesTEX("assets/spikesTile.png");
-    sf::Sprite spikes(spikesTEX);
-
-    static sf::Texture wall1TEX("assets/Wall1Tile.png");
-    sf::Sprite Wall1(wall1TEX);
-
-    static sf::Texture wall1TEX2("assets/Wall1Tile2.png");
-    sf::Sprite Wall1_2(wall1TEX2);
-
-    static sf::Texture wall1TEX3("assets/Wall1Tile3.png");
-    sf::Sprite Wall1_3(wall1TEX3);
-
-    static sf::Texture wall2TEX("assets/Wall2Tile.png");
-    sf::Sprite Wall2(wall2TEX);
-
-    static sf::Texture wall2TEX2("assets/Wall2Tile2.png");
-    sf::Sprite Wall2_2(wall2TEX2);
-
-    static sf::Texture wall3TEX("assets/Wall3Tile.png");
-    sf::Sprite Wall3(wall3TEX);
-
-    static sf::Texture wall3TEX2("assets/Wall3Tile2.png");
-    sf::Sprite Wall3_2(wall3TEX2);
-
-    static sf::Texture wall3TEX3("assets/Wall3Tile3.png");
-    sf::Sprite Wall3_3(wall3TEX3);
-
-    static sf::Texture waterTEX("assets/Water.png");
-    sf::Sprite Water(waterTEX);
-
-    static sf::Texture bridge1TEX("assets/Bridge1.png");
-    sf::Sprite Bridge1(bridge1TEX);
-
-    static sf::Texture water1TEX("assets/Water1.png");
-    sf::Sprite Water1(water1TEX);
-
-    static sf::Texture water2TEX("assets/Water2.png");
-    sf::Sprite Water2(water2TEX);
-
-    static sf::Texture water3TEX("assets/Water3.png");
-    sf::Sprite Water3(water3TEX);
-
-    static sf::Texture water4TEX("assets/Water4.png");
-    sf::Sprite Water4(water4TEX);
-
-    static sf::Texture water5TEX("assets/Water5.png");
-    sf::Sprite Water5(water5TEX);
-
-    static sf::Texture water6TEX("assets/Water6.png");
-    sf::Sprite Water6(water6TEX);
-
-    static sf::Texture water7TEX("assets/Water7.png");
-    sf::Sprite Water7(water7TEX);
-
-    static sf::Texture water8TEX("assets/Water8.png");
-    sf::Sprite Water8(water8TEX);
-
-    static sf::Texture upperGrassTEX("assets/UpperGrassTile.png");
-    sf::Sprite UpperGrass(upperGrassTEX);
-
-    static sf::Texture ShadedGrass1TEX("assets/ShadedGrass1.png");
-    sf::Sprite ShadedGrass1(ShadedGrass1TEX);
-
-    static sf::Texture ShadedGrass2TEX("assets/ShadedGrass2.png");
-    sf::Sprite ShadedGrass2(ShadedGrass2TEX);
-
-    static sf::Texture ShadedGrass3TEX("assets/ShadedGrass3.png");
-    sf::Sprite ShadedGrass3(ShadedGrass3TEX);
-
-    static sf::Texture ShadedGrass4TEX("assets/ShadedGrass4.png");
-    sf::Sprite ShadedGrass4(ShadedGrass4TEX);
-
-    static sf::Texture ShadedGrass5TEX("assets/ShadedGrass5.png");
-    sf::Sprite ShadedGrass5(ShadedGrass5TEX);
-
-    static sf::Texture ShadedGrass6TEX("assets/ShadedGrass6.png");
-    sf::Sprite ShadedGrass6(ShadedGrass6TEX);
-
-    static sf::Texture ShadedGrass7TEX("assets/ShadedGrass7.png");
-    sf::Sprite ShadedGrass7(ShadedGrass7TEX);
-
-    static sf::Texture ShadedGrass8TEX("assets/ShadedGrass8.png");
-    sf::Sprite ShadedGrass8(ShadedGrass8TEX);
-
-    static sf::Texture ShadedGrass9TEX("assets/ShadedGrass9.png");
-    sf::Sprite ShadedGrass9(ShadedGrass9TEX);
-
-    static sf::Texture ShadedGrass10TEX("assets/ShadedGrass10.png");
-    sf::Sprite ShadedGrass10(ShadedGrass10TEX);
-
-    static sf::Texture ShadedGrass11TEX("assets/ShadedGrass11.png");
-    sf::Sprite ShadedGrass11(ShadedGrass11TEX);
-
-    static sf::Texture ShadedGrass12TEX("assets/ShadedGrass12.png");
-    sf::Sprite ShadedGrass12(ShadedGrass12TEX);
-
-    static sf::Texture ShadedGrass13TEX("assets/ShadedGrass13.png");
-    sf::Sprite ShadedGrass13(ShadedGrass13TEX);
-
-    static sf::Texture ShadedGrass14TEX("assets/ShadedGrass14.png");
-    sf::Sprite ShadedGrass14(ShadedGrass14TEX);
-
-    static sf::Texture ShadedGrass15TEX("assets/ShadedGrass15.png");
-    sf::Sprite ShadedGrass15(ShadedGrass15TEX);
-
-    static sf::Texture ShadedGrass16TEX("assets/ShadedGrass16.png");
-    sf::Sprite ShadedGrass16(ShadedGrass16TEX);
-
-    static sf::Texture ShadedGrass17TEX("assets/ShadedGrass17.png");
-    sf::Sprite ShadedGrass17(ShadedGrass17TEX);
-
-    static sf::Texture ShadedGrass18TEX("assets/ShadedGrass18.png");
-    sf::Sprite ShadedGrass18(ShadedGrass18TEX);
-
-    static sf::Texture ShadedGrass19TEX("assets/ShadedGrass19.png");
-    sf::Sprite ShadedGrass19(ShadedGrass19TEX);
-
-    static sf::Texture ShadedGrass20TEX("assets/ShadedGrass20.png");
-    sf::Sprite ShadedGrass20(ShadedGrass20TEX);
-
-    static sf::Texture ShadedGrass21TEX("assets/ShadedGrass21.png");
-    sf::Sprite ShadedGrass21(ShadedGrass21TEX);
-
-    static sf::Texture ShadedGrass22TEX("assets/ShadedGrass22.png");
-    sf::Sprite ShadedGrass22(ShadedGrass22TEX);
-
-    static sf::Texture ShadedGrass23TEX("assets/ShadedGrass23.png");
-    sf::Sprite ShadedGrass23(ShadedGrass23TEX);
-
-    static sf::Texture ShadedGrass24TEX("assets/ShadedGrass24.png");
-    sf::Sprite ShadedGrass24(ShadedGrass24TEX);
-
-    static sf::Texture ShadedGrass25TEX("assets/ShadedGrass25.png");
-    sf::Sprite ShadedGrass25(ShadedGrass25TEX);
-
-    static sf::Texture SlimeTEX("assets/spikesTile.png");
-
-    static sf::Texture bushTEX("assets/Bush.png");
-    sf::Sprite Bush(bushTEX);
+    auto t_ptr = std::make_unique<tileTypes>();
+    tileTypes& t = *t_ptr;
 
     sf::RectangleShape inventoryBACKGROUND;
     inventoryBACKGROUND.setSize({1200.f,1200.f});
@@ -338,6 +201,9 @@ inline void start() {
     secondariesHUD.setSize({900.f,120.f});
     secondariesHUD.setPosition({60.f,230.f});
     secondariesHUD.setFillColor(sf::Color::Transparent);
+
+    static sf::Texture ArrowTEX("assets/Arrow.png");
+    sf::Sprite Arrow(Arrow);
 
     static sf::Texture arrowUP("assets/arrowUP.png");
     static sf::Texture arrowDOWN("assets/arrowDOWN.png");
@@ -370,9 +236,6 @@ inline void start() {
     readTiledFile("map_Ground.csv","groundMap");
     readTiledFile("map_Props.csv","propsMap");
 
-    static sf::Texture dummyTEX("assets/Dummy.png");
-    sf::Sprite dummy(dummyTEX);
-
     static sf::RectangleShape weaponHitbox;
     weaponHitbox.setOrigin({20.f,20.f});
     weaponHitbox.setSize({40.f,40.f});
@@ -381,8 +244,8 @@ inline void start() {
     while (window.isOpen()) {
 
         view.setSize(sf::Vector2f({
-            (float)desktopMode.size.x / zoomFactor,
-            (float)desktopMode.size.y / zoomFactor
+            (float)gameMode.size.x / zoomFactor,
+            (float)gameMode.size.y / zoomFactor
         }));
 
 
@@ -465,6 +328,11 @@ inline void start() {
                 isFlying = false;
             }
         }
+
+        if(playerHP==3) { healthBar.setTexture(healthBarTEX100); }
+        if(playerHP==2) { healthBar.setTexture(healthBarTEX66); }
+        if(playerHP==1) { healthBar.setTexture(healthBarTEX33); }
+        if(playerHP==0) { healthBar.setTexture(healthBarTEX0); }
 
         if(ShurikenBUT.isClicked() && sSel) { currentWeapon=VisWeapon::Shuriken; secondaryBUT.m_sprite.setTexture(shurikenTEX); throwables[0].selected=true; }
         if(SpearBUT.isClicked() && pSel) { currentWeapon=VisWeapon::Spear; primaryBUT.m_sprite.setTexture(spearTEX); melees[0].selected=true; melees[1].selected=false; }
@@ -558,8 +426,10 @@ inline void start() {
            groundMap[tileY][tileX] == SHADEDGRASS7 ||
            groundMap[tileY][tileX] == SHADEDGRASS8 ||
 
-           propsMap[tileY][tileX] == BUSH
-           ) {
+           propsMap[tileY][tileX] == BUSH ||
+           propsMap[tileY][tileX] == BARREL ||
+           propsMap[tileY][tileX] == DUMMY
+          ) {
             vx = 0.0f;
             vy = 0.0f;
         } else {
@@ -584,19 +454,8 @@ inline void start() {
 
         // RENDER
 
-        sf::Vector2f viewSize = view.getSize();
-        sf::Vector2f viewCenter = view.getCenter();
-
-        int startX = std::clamp((int)((viewCenter.x - viewSize.x / 2.0f) / 40.0f) - 1, 0, N);
-        int startY = std::clamp((int)((viewCenter.y - viewSize.y / 2.0f) / 40.0f) - 1, 0, N);
-        int endX   = std::clamp((int)((viewCenter.x + viewSize.x / 2.0f) / 40.0f) + 1, 0, N);
-        int endY   = std::clamp((int)((viewCenter.y + viewSize.y / 2.0f) / 40.0f) + 1, 0, N);
-
-        if (startX >= endX && endX > 0) startX = endX - 1;
-        if (startY >= endY && endY > 0) startY = endY - 1;
-
-        groundRender(window, groundMap, grass, grass2, spikes, Wall1, Wall1_2, Wall1_3, Wall2, Wall2_2, Wall3, Wall3_2, Wall3_3, craftingTable, UpperGrass, stair, Water, Water1, Water2, Water3, Water4, Water5, Water6, Water7, Water8, Bridge1, ShadedGrass1, ShadedGrass2, ShadedGrass3, ShadedGrass4, ShadedGrass5, ShadedGrass6, ShadedGrass7, ShadedGrass8, ShadedGrass9, ShadedGrass10, ShadedGrass11, ShadedGrass12, ShadedGrass13, ShadedGrass14, ShadedGrass15, ShadedGrass16, ShadedGrass17, ShadedGrass18, ShadedGrass19, ShadedGrass20, ShadedGrass21, ShadedGrass22, ShadedGrass23, ShadedGrass24, ShadedGrass25, view);
-        propsRender(window, propsMap, view, Bush, dummy, weaponHitbox, isAttacking, shuriken);
+        groundRender(window, groundMap, t, view);
+        propsRender(window, propsMap, view, t, weaponHitbox, isAttacking, shuriken);
 
         window.setView(view);
 
@@ -611,7 +470,13 @@ inline void start() {
 
         window.setView(guiView);
 
-        RenderGUI(window, inInv, currentWeapon, guiState, settingsState, zoomFactor, selWeaponName, selWeaponCount, selWeaponDamage, throwables, animations, melees, inventoryBACKGROUND, guiTOP, guiStateText, settingsStateText, primaryBUT, secondaryBUT, ExitBUT, pSel, sSel, SwordBUT, SpearBUT, ShurikenBUT, invBUT);
+        window.draw(healthBar);
+
+        RenderGUI(window, inInv, currentWeapon, guiState, settingsState,
+                  zoomFactor, selWeaponName, selWeaponCount, selWeaponDamage, throwables,
+                  animations, melees, inventoryBACKGROUND, guiTOP, guiStateText,
+                  settingsStateText, primaryBUT, secondaryBUT, ExitBUT, pSel,
+                  sSel, Arrow, SwordBUT, SpearBUT, ShurikenBUT, invBUT);
 
         window.setView(view);
 

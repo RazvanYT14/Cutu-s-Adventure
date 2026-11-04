@@ -1,4 +1,5 @@
 #pragma once
+#include "animation.hpp"
 
 inline void movementSystem(bool& wasMoving, float& vy,
                     float& vx, float& ACCELERATION,
@@ -19,7 +20,6 @@ inline void movementSystem(bool& wasMoving, float& vy,
     //ROLLING
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
         if(!rolling) {
-            if (!playerTEX.loadFromFile("assets/PlayerFrontRolling.png")) {}
             rolling = true;
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) vy-=rollVAdd;
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) vy+=rollVAdd;
@@ -29,19 +29,23 @@ inline void movementSystem(bool& wasMoving, float& vy,
         }
     }
 
-    if(rolling && menuClock.getElapsedTime() >= sf::milliseconds(500)) {
+    if(rolling && menuClock.getElapsedTime() >= sf::milliseconds(350)) {
         rolling = false;
         wasMoving = !isMoving;
     }
+    if(isMoving != wasMoving) {
+        if(isMoving) {
+        } else {
 
-    if(!rolling) {
-        if(isMoving != wasMoving) {
-            if(isMoving) {
-                playerTEX.loadFromFile("assets/PlayerFrontRunning.png");
-            } else {
-                playerTEX.loadFromFile("assets/PlayerFrontIdle.png");
-            }
-            wasMoving = isMoving;
         }
+        wasMoving = isMoving;
+    }
+    if (!isMoving) {
+        idle.play(player);
+    } else {
+        run.play(player);
+    }
+    if (rolling) {
+        roll.play(player);
     }
 }

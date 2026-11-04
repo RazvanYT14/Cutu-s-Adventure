@@ -35,7 +35,7 @@
 					<Add option="-static-libstdc++" />
 					<Add option="-static-libgcc" />
 					<Add option="-static" />
-					<Add option="-lsfml-audio-s -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lflac -lvorbisenc -lvorbisfile -lvorbis -logg -lopengl32 -lfreetype -lwinmm -lgdi32" />
+					<Add option="-lsfml-audio-s -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lflac -lvorbisenc -lvorbisfile -lvorbis -logg -lopengl32 -lfreetype -lwinmm -lgdi32 -lws2_32" />
 				</Linker>
 			</Target>
 		</Build>
@@ -44,11 +44,11 @@
 			<Add option="-std=c++23" />
 			<Add option="-fexceptions" />
 			<Add option="-DSFML_STATIC" />
-			<Add directory="C:/Users/Razvan/Downloads/SFML-3.0.2/include" />
+			<Add directory="D:/SFML-3.0.2/include" />
 		</Compiler>
 		<Linker>
 			<Add option="-mwindows" />
-			<Add directory="C:/Users/Razvan/Downloads/SFML-3.0.2/lib" />
+			<Add directory="D:/SFML-3.0.2/lib" />
 		</Linker>
 		<Unit filename="Button.cpp" />
 		<Unit filename="Button.hpp" />
@@ -56,7 +56,7 @@
 		<Unit filename="Dummy.hpp" />
 		<Unit filename="Primary.hpp" />
 		<Unit filename="Secondary.hpp" />
-		<Unit filename="culling.hpp" />
+		<Unit filename="animation.hpp" />
 		<Unit filename="data.hpp" />
 		<Unit filename="declareAssets.cpp" />
 		<Unit filename="declareAssets.hpp" />

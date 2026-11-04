@@ -24,11 +24,13 @@ void RenderGUI(
     Button& ExitBUT,
     bool& pSel,
     bool& sSel,
+    sf::Sprite& Arrow,
     Button& SwordBUT,
     Button& SpearBUT,
     Button& ShurikenBUT,
     Button& invBUT
 ) {
+
         if (!inInv) {
             invBUT.draw(window);
             if (animations) {
@@ -37,14 +39,14 @@ void RenderGUI(
                     if (zoomFactor < 3.5f) zoomFactor = 3.5f;
                 }
             }
-        } else {
+        }
+
             if (animations) {
                 if (zoomFactor < 5.0f) {
                     zoomFactor += 0.05f;
                     if (zoomFactor > 5.0f) zoomFactor = 5.0f;
                 }
             }
-        }
         if(inInv && guiState==guiStateMachine::Equipment) {
 
             if(currentWeapon==VisWeapon::None) {
