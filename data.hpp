@@ -20,6 +20,7 @@
 
 #include "movement.hpp"
 #include "Dummy.hpp"
+#include "Barrel.hpp"
 
 struct Button;
 
@@ -87,7 +88,7 @@ inline bool pSel = false;
 inline bool sSel = false;
 
 inline std::vector<secondary> throwables {
-    {"Shuriken", 50, false, true, 8}
+    {"Shuriken", 50, true, true, 8}
 };
 
 inline std::vector<primary> melees {

@@ -86,25 +86,34 @@ inline void start() {
 
     sf::RenderWindow window;
 
-    sf::VideoMode gameMode({1600, 900});
+    sf::VideoMode gameMode({800, 450});
 
-    window.create(gameMode, "Unnamed RPG Game", sf::State::Windowed);
+    window.create(gameMode, "Cutu's Adventure", sf::State::Windowed);
+    sf::Image icon;
+    if(icon.loadFromFile("assets/icon.png")) {}
+    window.setIcon(icon);
 
     window.setVerticalSyncEnabled(true);
+    window.setFramerateLimit(60);
 
     float zoomFactor = 3.5f;
 
     sf::View view;
     view.setSize(sf::Vector2f({
-        (float)gameMode.size.x / zoomFactor,
-        (float)gameMode.size.y / zoomFactor
+        (float)gameMode.size.x * 2 / zoomFactor,
+        (float)gameMode.size.y * 2 / zoomFactor
     }));
 
     sf::Texture spearTEX("assets/spearTEX.png");
     sf::Texture swordTEX("assets/swordTEX.png");
     sf::Texture shurikenTEX("assets/shurikenTEX.png");
 
-    sf::Sprite shuriken(shurikenTEX);
+    const sf::Texture equippedShuriken("assets/equippedShuriken.png");
+    const sf::Texture equippedSpear("assets/equippedSpear.png");
+    const sf::Texture equippedSword("assets/equippedSword.png");
+    const sf::Texture equippedFists("assets/equippedFists.png");
+
+    sf::Sprite shuriken(equippedShuriken);
     shuriken.setScale({0.5f, 0.5f});
     shuriken.setOrigin(sf::Vector2f(shurikenTEX.getSize()) / 2.0f);
 
@@ -164,11 +173,6 @@ inline void start() {
     settingsStateText.setPosition({850.f,90.f});
     settingsStateText.setFillColor(sf::Color::Black);
     settingsStateText.setScale({2.f,2.f});
-
-    const sf::Texture equippedShuriken("assets/equippedShuriken.png");
-    const sf::Texture equippedSpear("assets/equippedSpear.png");
-    const sf::Texture equippedSword("assets/equippedSword.png");
-    const sf::Texture equippedFists("assets/equippedFists.png");
 
     sf::Sprite equippedWeapon(equippedFists);
 
@@ -244,8 +248,8 @@ inline void start() {
     while (window.isOpen()) {
 
         view.setSize(sf::Vector2f({
-            (float)gameMode.size.x / zoomFactor,
-            (float)gameMode.size.y / zoomFactor
+            (float)gameMode.size.x * 2 / zoomFactor,
+            (float)gameMode.size.y * 2 / zoomFactor
         }));
 
 
@@ -425,6 +429,23 @@ inline void start() {
            groundMap[tileY][tileX] == SHADEDGRASS6 ||
            groundMap[tileY][tileX] == SHADEDGRASS7 ||
            groundMap[tileY][tileX] == SHADEDGRASS8 ||
+           groundMap[tileY][tileX] == SHADEDGRASS9 ||
+           groundMap[tileY][tileX] == SHADEDGRASS10 ||
+           groundMap[tileY][tileX] == SHADEDGRASS11 ||
+           groundMap[tileY][tileX] == SHADEDGRASS12 ||
+           groundMap[tileY][tileX] == SHADEDGRASS13 ||
+           groundMap[tileY][tileX] == SHADEDGRASS14 ||
+           groundMap[tileY][tileX] == SHADEDGRASS15 ||
+           groundMap[tileY][tileX] == SHADEDGRASS16 ||
+           groundMap[tileY][tileX] == SHADEDGRASS17 ||
+           groundMap[tileY][tileX] == SHADEDGRASS18 ||
+           groundMap[tileY][tileX] == SHADEDGRASS19 ||
+           groundMap[tileY][tileX] == SHADEDGRASS20 ||
+           groundMap[tileY][tileX] == SHADEDGRASS21 ||
+           groundMap[tileY][tileX] == SHADEDGRASS22 ||
+           groundMap[tileY][tileX] == SHADEDGRASS23 ||
+           groundMap[tileY][tileX] == SHADEDGRASS24 ||
+           groundMap[tileY][tileX] == SHADEDGRASS25 ||
 
            propsMap[tileY][tileX] == BUSH ||
            propsMap[tileY][tileX] == BARREL ||

@@ -30,16 +30,24 @@ void RenderGUI(
     Button& ShurikenBUT,
     Button& invBUT
 ) {
-
         if (!inInv) {
             invBUT.draw(window);
             if (animations) {
                 if (zoomFactor > 3.5f) {
-                    zoomFactor -= 0.05f;
+                    zoomFactor -= 0.1f;
                     if (zoomFactor < 3.5f) zoomFactor = 3.5f;
                 }
             }
+        } else {
+            if (animations) {
+                if (zoomFactor < 4.0f) {
+                    zoomFactor += 0.05f;
+                    if (zoomFactor > 4.0f) zoomFactor = 4.0f;
+                }
+            }
         }
+
+
 
             if (animations) {
                 if (zoomFactor < 5.0f) {

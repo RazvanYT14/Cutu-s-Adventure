@@ -253,6 +253,8 @@ void propsRender(sf::RenderWindow& window, char propsMap[N][N], sf::View& view,
             }
             else if(propsMap[ry][rx] == BARREL) {
                 t.Barrel.setPosition(sf::Vector2f({rx * 40.0f, ry * 40.0f}));
+                getDestroyed(t.Barrel, weaponHitbox, isAttacking, shuriken, rx, ry);
+
                 window.draw(t.Barrel);
             }
         }

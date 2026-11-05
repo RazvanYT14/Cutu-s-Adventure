@@ -149,7 +149,6 @@ inline void readTiledFile(const char* filename, std::string layerName) {
 }
 
 struct tileTypes {
-    // 1. Declarăm texturile (Ordinea contează! Texturile trebuie declarate ÎNAINTEA sprite-urilor)
     sf::Texture grassTEX{"assets/grassTile.png"};
     sf::Texture grassTEX2{"assets/grassTile2.png"};
     sf::Texture stairTEX{"assets/stairTile.png"};
@@ -203,7 +202,6 @@ struct tileTypes {
     sf::Texture dummyTEX{"assets/Dummy.png"};
     sf::Texture barrelTEX{"assets/Barrel.png"};
 
-    // 2. În SFML 3, Sprite-urile TREBUIE inițializate direct cu textura lor ca referință lvalue
     sf::Sprite grass{grassTEX};
     sf::Sprite grass2{grassTEX2};
     sf::Sprite stair{stairTEX};

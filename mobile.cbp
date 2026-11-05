@@ -21,7 +21,7 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/exp" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/Cutu&apos;s Adventure" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -50,6 +50,12 @@
 			<Add option="-mwindows" />
 			<Add directory="D:/SFML-3.0.2/lib" />
 		</Linker>
+		<ExtraCommands>
+			<Add after='powershell.exe -ExecutionPolicy Bypass -File C:\sign_proiect.ps1 &quot;$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).exe&quot;' />
+			<Mode after="always" />
+		</ExtraCommands>
+		<Unit filename="Barrel.cpp" />
+		<Unit filename="Barrel.hpp" />
 		<Unit filename="Button.cpp" />
 		<Unit filename="Button.hpp" />
 		<Unit filename="Dummy.cpp" />
@@ -66,6 +72,9 @@
 		<Unit filename="guiRender.hpp" />
 		<Unit filename="movement.hpp" />
 		<Unit filename="render.hpp" />
+		<Unit filename="resource.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
 		<Unit filename="tilemap.hpp" />
 		<Unit filename="weaponActivation.cpp" />
 		<Unit filename="weaponActivation.hpp" />

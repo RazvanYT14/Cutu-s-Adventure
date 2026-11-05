@@ -869,7 +869,7 @@
 1787763834 source:f:\mymobilegame\game.cpp
 	"gameloop.hpp"
 
-1793808052 f:\mymobilegame\gameloop.hpp
+1793895176 f:\mymobilegame\gameloop.hpp
 	"data.hpp"
 	"Button.hpp"
 	"render.hpp"
@@ -878,7 +878,7 @@
 	"animation.hpp"
 	"memory"
 
-1793808090 f:\mymobilegame\data.hpp
+1793895228 f:\mymobilegame\data.hpp
 	"iostream"
 	"fstream"
 	"windows.h"
@@ -895,6 +895,7 @@
 	"tilemap.hpp"
 	"movement.hpp"
 	"Dummy.hpp"
+	"Barrel.hpp"
 
 1788449864 f:\mymobilegame\button.hpp
 	"data.hpp"
@@ -911,7 +912,7 @@
 
 1786197428 source:f:\mymobilegame\weaponactivation.cpp
 
-1793658502 f:\mymobilegame\tilemap.hpp
+1793823244 f:\mymobilegame\tilemap.hpp
 	<fstream>
 	<SFML/Graphics.hpp>
 
@@ -1085,15 +1086,15 @@
 1793806048 f:\mymobilegame\movement.hpp
 	"animation.hpp"
 
-1793463800 f:\mymobilegame\render.hpp
+1793823426 f:\mymobilegame\render.hpp
 	"tilemap.hpp"
 	"data.hpp"
 
-1793807396 f:\mymobilegame\guirender.hpp
+1793825388 f:\mymobilegame\guirender.hpp
 	"Button.hpp"
 	"data.hpp"
 
-1793215294 f:\mymobilegame\dummy.hpp
+1793823050 f:\mymobilegame\dummy.hpp
 	<SFML/Graphics.hpp>
 
 1793215692 source:f:\mymobilegame\dummy.cpp
@@ -1616,4 +1617,13 @@
 
 1793738764 d:\sfml-3.0.2\include\sfml\system\sleep.hpp
 	<SFML/System/Export.hpp>
+
+1793823448 f:\mymobilegame\barrel.hpp
+	<SFML/Graphics.hpp>
+
+1793823472 source:f:\mymobilegame\barrel.cpp
+	"Barrel.hpp"
+	"data.hpp"
+
+1793893188 source:f:\mymobilegame\resource.rc
 
