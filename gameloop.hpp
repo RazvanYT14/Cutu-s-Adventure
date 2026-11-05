@@ -310,6 +310,10 @@ inline void start() {
             std::optional<sf::Event> noEvent = std::nullopt;
         }
 
+        float dt = deltaClock.restart().asSeconds();
+
+        if(dt>0.1f) { dt=0.1f; }
+
         if(guiState==guiStateMachine::None) { guiStateText.setString(" "); }
         else if(guiState==guiStateMachine::Equipment) { guiStateText.setString("Equipment"); }
         else if(guiState==guiStateMachine::Settings) { guiStateText.setString("Settings"); }
@@ -317,7 +321,7 @@ inline void start() {
         if(settingsState==settingsStateMachine::None) { settingsStateText.setString(" "); }
 
         //MOVEMENT
-        movementSystem(wasMoving,vy,vx,ACCELERATION,menuClock,rolling,player,playerTEX,isMoving, rollVAdd);
+        movementSystem(wasMoving,vy,vx,ACCELERATION,menuClock,rolling,player,playerTEX,isMoving, rollVAdd, dt);
 
 
         if (isFlying) {
@@ -391,9 +395,9 @@ inline void start() {
         // MOVEMENT
 
         if(GetAsyncKeyState(VK_LSHIFT) & 0x8000) {
-            ACCELERATION=0.02f;
+            ACCELERATION=0.65f;
         } else {
-            ACCELERATION=0.015f;
+            ACCELERATION=0.6f;
         }
 
         vx *= FRICTION;

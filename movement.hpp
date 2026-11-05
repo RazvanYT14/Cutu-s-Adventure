@@ -5,12 +5,12 @@ inline void movementSystem(bool& wasMoving, float& vy,
                     float& vx, float& ACCELERATION,
                     sf::Clock& menuClock,
                     bool& rolling, sf::Sprite& player,
-                    sf::Texture& playerTEX, bool& isMoving, const float& rollVAdd) {
+                    sf::Texture& playerTEX, bool& isMoving, const float& rollVAdd, float& dt ) {
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) ) {  vy -= ACCELERATION; }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) ) {  vy += ACCELERATION; }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) ) {  player.setScale({1.f,1.f}); vx -= ACCELERATION; }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) ) {  player.setScale({-1.f,1.f}); vx += ACCELERATION; }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) ) {  vy -= ACCELERATION*dt; }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) ) {  vy += ACCELERATION*dt; }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) ) {  player.setScale({1.f,1.f}); vx -= ACCELERATION*dt; }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) ) {  player.setScale({-1.f,1.f}); vx += ACCELERATION*dt; }
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) ||
         sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) ||
@@ -21,10 +21,10 @@ inline void movementSystem(bool& wasMoving, float& vy,
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
         if(!rolling) {
             rolling = true;
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) vy-=rollVAdd;
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) vy+=rollVAdd;
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) vx-=rollVAdd;
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) vx+=rollVAdd;
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) vy-=rollVAdd*dt;
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) vy+=rollVAdd*dt;
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) vx-=rollVAdd*dt;
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) vx+=rollVAdd*dt;
             menuClock.restart();
         }
     }
@@ -41,11 +41,11 @@ inline void movementSystem(bool& wasMoving, float& vy,
         wasMoving = isMoving;
     }
     if (!isMoving) {
-        idle.play(player);
+        idle.play(player,dt);
     } else {
-        run.play(player);
+        run.play(player,dt);
     }
     if (rolling) {
-        roll.play(player);
+        roll.play(player,dt);
     }
 }

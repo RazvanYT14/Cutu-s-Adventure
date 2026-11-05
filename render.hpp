@@ -22,7 +22,7 @@ void groundRender(
         for (int ry = startY; ry < endY; ++ry) {
             for (int rx = startX; rx < endX; ++rx) {
                 if (groundMap[ry][rx] == GRASS) {
-                    t.grass.setPosition(sf::Vector2f({rx * 40.0f, ry * 40.0f}));
+                    t.grass.setPosition(sf::Vector2f({rx * 40.0f , ry * 40.0f}));
                     window.draw(t.grass);
                 }
                 else if (groundMap[ry][rx] == GRASS2) {

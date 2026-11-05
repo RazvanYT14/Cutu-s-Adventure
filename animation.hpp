@@ -5,11 +5,11 @@
 
 struct Animation {
     std::vector<std::shared_ptr<sf::Texture>> textures;
-    int ticksPerFrame;
-    int tickCounter = 0;
-    size_t currentFrame = 0;
+    float ticksPerFrame;
+    float tickCounter = 0.f;
+    size_t currentFrame = 0.f;
 
-    Animation(size_t frameCount, const std::vector<std::string>& filePaths, int speedInTicks)
+    Animation(size_t frameCount, const std::vector<std::string>& filePaths, float speedInTicks)
         : ticksPerFrame(speedInTicks) {
 
         size_t limit = std::min(frameCount, filePaths.size());
@@ -21,10 +21,10 @@ struct Animation {
         }
     }
 
-    void play(sf::Sprite& sprite) {
+    void play(sf::Sprite& sprite, float& dt) {
         if (textures.empty()) return;
 
-        tickCounter++;
+        tickCounter+=dt;
         if (tickCounter >= ticksPerFrame) {
             tickCounter = 0;
             currentFrame = (currentFrame + 1) % textures.size();
@@ -34,6 +34,6 @@ struct Animation {
     }
 };
 
-inline Animation idle(2,{"assets/Idle/idle1.png","assets/Idle/idle2.png"},40);
-inline Animation run(2,{"assets/Run/run1.png","assets/Run/run2.png"},20);
-inline Animation roll(2,{"assets/Roll/roll1.png","assets/Roll/roll2.png"},10);
+inline Animation idle(2,{"assets/Idle/idle1.png","assets/Idle/idle2.png"},1.f);
+inline Animation run(2,{"assets/Run/run1.png","assets/Run/run2.png"},0.3f);
+inline Animation roll(2,{"assets/Roll/roll1.png","assets/Roll/roll2.png"},0.5f);

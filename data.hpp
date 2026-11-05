@@ -28,7 +28,7 @@ inline float px=12, py=12;
 
 inline float vx = 0.0f;
 inline float vy = 0.0f;
-inline float ACCELERATION = 0.015f;
+inline float ACCELERATION = 0.6f;
 inline const float FRICTION = 0.77f;
 
 inline std::string username;
@@ -43,7 +43,7 @@ inline bool wasMoving = false;
 
 inline bool isAttacking = false;
 
-inline const float rollVAdd = 0.5f;
+inline const float rollVAdd = 30.f;
 
 enum class VisWeapon {
     Shuriken,
@@ -122,4 +122,7 @@ inline bool animations = true;
 inline int walkAnim = 1;
 
 inline bool rolling = false;
+
+inline sf::Clock deltaClock;
+
 
