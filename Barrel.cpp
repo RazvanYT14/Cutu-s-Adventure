@@ -8,6 +8,9 @@ void getDestroyed(sf::Sprite& Barrel, sf::RectangleShape& weaponHitbox, bool& is
 
     if (rect1.findIntersection(rect2).has_value() && isAttacking) {
         propsMap[ry][rx]=-1;
+        for(int i = 0; i<melees.size(); i++) {
+            if(melees[i].selected) { melees[i].dura--; }
+        }
     }
     else if (rect3.findIntersection(rect2).has_value()) {
         propsMap[ry][rx]=-1;

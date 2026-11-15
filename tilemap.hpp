@@ -2,6 +2,8 @@
 
 #include <fstream>
 #include <SFML/Graphics.hpp>
+#include <vector>
+#include "Barrel.hpp"
 
 const int N = 25;
 
@@ -60,6 +62,20 @@ const char GRASS = 1;
     const char WALL3t3 = 49;
     const char DUMMY = 50;
     const char BARREL = 51;
+    const char PATH1 = 52;
+    const char PATH2 = 53;
+    const char PATH3 = 54;
+    const char PATH4 = 55;
+    const char PATH5 = 56;
+    const char PATH6 = 57;
+    const char PATH7 = 58;
+    const char PATH8 = 59;
+    const char PATH9 = 60;
+    const char PATH10 = 61;
+    const char PATH11 = 62;
+    const char PATH12 = 63;
+    const char PATH13 = 64;
+    const char BLACKSMITH = 65;
 
 inline void readTiledFile(const char* filename, std::string layerName) {
     FILE* file = fopen(filename, "r");
@@ -114,6 +130,9 @@ inline void readTiledFile(const char* filename, std::string layerName) {
                         case 53: groundMap[y][x] = SHADEDGRASS19; break;
                         case 54: groundMap[y][x] = SHADEDGRASS20; break;
                         case 55: groundMap[y][x] = SHADEDGRASS21; break;
+                        case 59: groundMap[y][x] = PATH1; break;
+                        case 60: groundMap[y][x] = PATH2; break;
+                        case 61: groundMap[y][x] = PATH3; break;
                         case 62: groundMap[y][x] = WALL1t2; break;
                         case 63: groundMap[y][x] = WALL3t2; break;
                         case 64: groundMap[y][x] = SHADEDGRASS22; break;
@@ -122,6 +141,16 @@ inline void readTiledFile(const char* filename, std::string layerName) {
                         case 67: groundMap[y][x] = SHADEDGRASS23; break;
                         case 68: groundMap[y][x] = SHADEDGRASS24; break;
                         case 69: groundMap[y][x] = SHADEDGRASS25; break;
+                        case 72: groundMap[y][x] = PATH4; break;
+                        case 73: groundMap[y][x] = PATH5; break;
+                        case 74: groundMap[y][x] = PATH6; break;
+                        case 75: groundMap[y][x] = PATH7; break;
+                        case 76: groundMap[y][x] = PATH8; break;
+                        case 77: groundMap[y][x] = PATH9; break;
+                        case 78: groundMap[y][x] = PATH10; break;
+                        case 79: groundMap[y][x] = PATH11; break;
+                        case 80: groundMap[y][x] = PATH12; break;
+                        case 81: groundMap[y][x] = PATH13; break;
                         default: groundMap[y][x] = GRASS; break;
                     }
                 }
@@ -130,6 +159,7 @@ inline void readTiledFile(const char* filename, std::string layerName) {
                         case 58: propsMap[y][x] = BUSH; break;
                         case 70: propsMap[y][x] = DUMMY; break;
                         case 71: propsMap[y][x] = BARREL; break;
+                        case 82: propsMap[y][x] = BLACKSMITH ; break;
                         case 0:  propsMap[y][x] = 0; break;
                         case -1: propsMap[y][x] = 0; break;
                         default: propsMap[y][x] = 0; break;
@@ -162,16 +192,16 @@ struct tileTypes {
     sf::Texture wall3TEX{"assets/Wall3Tile.png"};
     sf::Texture wall3TEX2{"assets/Wall3Tile2.png"};
     sf::Texture wall3TEX3{"assets/Wall3Tile3.png"};
-    sf::Texture waterTEX{"assets/Water.png"};
+    sf::Texture waterTEX{"assets/WaterAnim/Water/WaterA.png"};
     sf::Texture bridge1TEX{"assets/Bridge1.png"};
-    sf::Texture water1TEX{"assets/Water1.png"};
-    sf::Texture water2TEX{"assets/Water2.png"};
-    sf::Texture water3TEX{"assets/Water3.png"};
-    sf::Texture water4TEX{"assets/Water4.png"};
-    sf::Texture water5TEX{"assets/Water5.png"};
-    sf::Texture water6TEX{"assets/Water6.png"};
-    sf::Texture water7TEX{"assets/Water7.png"};
-    sf::Texture water8TEX{"assets/Water8.png"};
+    sf::Texture water1TEX{"assets/WaterAnim/Water1/Water1A.png"};
+    sf::Texture water2TEX{"assets/WaterAnim/Water2/Water2A.png"};
+    sf::Texture water3TEX{"assets/WaterAnim/Water3/Water3A.png"};
+    sf::Texture water4TEX{"assets/WaterAnim/Water4/Water4A.png"};
+    sf::Texture water5TEX{"assets/WaterAnim/Water5/Water5A.png"};
+    sf::Texture water6TEX{"assets/WaterAnim/Water6/Water6A.png"};
+    sf::Texture water7TEX{"assets/WaterAnim/Water7/Water7A.png"};
+    sf::Texture water8TEX{"assets/WaterAnim/Water8/Water8A.png"};
     sf::Texture upperGrassTEX{"assets/UpperGrassTile.png"};
     sf::Texture ShadedGrass1TEX{"assets/ShadedGrass1.png"};
     sf::Texture ShadedGrass2TEX{"assets/ShadedGrass2.png"};
@@ -198,9 +228,23 @@ struct tileTypes {
     sf::Texture ShadedGrass23TEX{"assets/ShadedGrass23.png"};
     sf::Texture ShadedGrass24TEX{"assets/ShadedGrass24.png"};
     sf::Texture ShadedGrass25TEX{"assets/ShadedGrass25.png"};
-    sf::Texture bushTEX{"assets/Bush.png"};
+    sf::Texture bushTEX{"assets/PropsAnim/Bush/Bush1.png"};
     sf::Texture dummyTEX{"assets/Dummy.png"};
-    sf::Texture barrelTEX{"assets/Barrel.png"};
+    sf::Texture barrelTEX{"assets/PropsAnim/Barrel/Barrel.png"};
+    sf::Texture path1TEX{"assets/Path1.png"};
+    sf::Texture path2TEX{"assets/Path2.png"};
+    sf::Texture path3TEX{"assets/Path3.png"};
+    sf::Texture path4TEX{"assets/Path4.png"};
+    sf::Texture path5TEX{"assets/Path5.png"};
+    sf::Texture path6TEX{"assets/Path6.png"};
+    sf::Texture path7TEX{"assets/Path7.png"};
+    sf::Texture path8TEX{"assets/Path8.png"};
+    sf::Texture path9TEX{"assets/Path9.png"};
+    sf::Texture path10TEX{"assets/Path10.png"};
+    sf::Texture path11TEX{"assets/Path11.png"};
+    sf::Texture path12TEX{"assets/Path12.png"};
+    sf::Texture path13TEX{"assets/Path13.png"};
+    sf::Texture blacksmithTEX{"assets/BlackSmithIdle/bsIdle1.png"};
 
     sf::Sprite grass{grassTEX};
     sf::Sprite grass2{grassTEX2};
@@ -254,6 +298,20 @@ struct tileTypes {
     sf::Sprite Bush{bushTEX};
     sf::Sprite dummy{dummyTEX};
     sf::Sprite Barrel{barrelTEX};
+    sf::Sprite Path1{path1TEX};
+    sf::Sprite Path2{path2TEX};
+    sf::Sprite Path3{path3TEX};
+    sf::Sprite Path4{path4TEX};
+    sf::Sprite Path5{path5TEX};
+    sf::Sprite Path6{path6TEX};
+    sf::Sprite Path7{path7TEX};
+    sf::Sprite Path8{path8TEX};
+    sf::Sprite Path9{path9TEX};
+    sf::Sprite Path10{path10TEX};
+    sf::Sprite Path11{path11TEX};
+    sf::Sprite Path12{path12TEX};
+    sf::Sprite Path13{path13TEX};
+    sf::Sprite Blacksmith{blacksmithTEX};
 };
 
 

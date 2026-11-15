@@ -1,11 +1,13 @@
 #pragma once
 #include "animation.hpp"
+#include "SoundEngine.hpp"
 
 inline void movementSystem(bool& wasMoving, float& vy,
                     float& vx, float& ACCELERATION,
                     sf::Clock& menuClock,
                     bool& rolling, sf::Sprite& player,
-                    sf::Texture& playerTEX, bool& isMoving, const float& rollVAdd, float& dt ) {
+                    sf::Texture& playerTEX, bool& isMoving, const float& rollVAdd, float& dt,
+                    soundTypes& s, int& maxp, int& minp ) {
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) ) {  vy -= ACCELERATION*dt; }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) ) {  vy += ACCELERATION*dt; }
@@ -34,18 +36,45 @@ inline void movementSystem(bool& wasMoving, float& vy,
         wasMoving = !isMoving;
     }
     if(isMoving != wasMoving) {
-        if(isMoving) {
-        } else {
-
-        }
         wasMoving = isMoving;
     }
+
     if (!isMoving) {
         idle.play(player,dt);
-    } else {
-        run.play(player,dt);
+    } else if(isMoving && !rolling) {
+        run.play(player, dt);
+
+        s.playerWalking.setVolume(5.f);
+
+        static bool startedWalking = true;
+
+        if (startedWalking) {
+            float randomPitch = (minp + (rand() % (maxp - minp + 1))) / 100.0f;
+            s.playerWalking.setPitch(randomPitch);
+            s.playerWalking.play();
+
+            startedWalking = false;
+        }
+        if (s.playerWalking.getStatus() == sf::Sound::Status::Stopped) {
+            startedWalking = true;
+        }
     }
     if (rolling) {
         roll.play(player,dt);
+
+        s.roll.setVolume(50.f);
+
+        static bool startedRolling = true;
+
+        if (startedRolling) {
+            float randomPitch = (minp + (rand() % (maxp - minp + 1))) / 100.0f;
+            s.roll.setPitch(randomPitch);
+            s.roll.play();
+
+            startedRolling = false;
+        }
+        if (s.roll.getStatus() == sf::Sound::Status::Stopped) {
+            startedRolling = true;
+        }
     }
 }

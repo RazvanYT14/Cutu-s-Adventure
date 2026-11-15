@@ -17,7 +17,7 @@
 					<Add directory="include" />
 				</Compiler>
 				<Linker>
-					<Add option="-lsfml-audio-s-d -lsfml-graphics-s-d -lsfml-window-s-d -lsfml-system-s-d -lflac -lvorbisenc -lvorbisfile -lvorbis -logg -lopengl32 -lfreetype -lwinmm -lgdi32" />
+					<Add option="-lsfml-audio-s -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lflac -lvorbisenc -lvorbisfile -lvorbis -logg -lopengl32 -lfreetype -lwinmm -lgdi32 -lws2_32" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -48,6 +48,14 @@
 		</Compiler>
 		<Linker>
 			<Add option="-mwindows" />
+			<Add option="-Wl,--dynamicbase" />
+			<Add option="-Wl,--nxcompat" />
+			<Add option="-Wl,--high-entropy-va" />
+			<Add option="-Wl,--tsaware" />
+			<Add option="-Wl,--major-os-version,6" />
+			<Add option="-Wl,--minor-os-version,0" />
+			<Add option="-Wl,--major-subsystem-version,6" />
+			<Add option="-Wl,--minor-subsystem-version,0" />
 			<Add directory="D:/SFML-3.0.2/lib" />
 		</Linker>
 		<ExtraCommands>
@@ -56,12 +64,15 @@
 		</ExtraCommands>
 		<Unit filename="Barrel.cpp" />
 		<Unit filename="Barrel.hpp" />
+		<Unit filename="Blacksmith.cpp" />
+		<Unit filename="Blacksmith.hpp" />
 		<Unit filename="Button.cpp" />
 		<Unit filename="Button.hpp" />
 		<Unit filename="Dummy.cpp" />
 		<Unit filename="Dummy.hpp" />
 		<Unit filename="Primary.hpp" />
 		<Unit filename="Secondary.hpp" />
+		<Unit filename="SoundEngine.hpp" />
 		<Unit filename="animation.hpp" />
 		<Unit filename="data.hpp" />
 		<Unit filename="declareAssets.cpp" />

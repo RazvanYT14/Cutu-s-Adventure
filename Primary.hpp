@@ -3,7 +3,8 @@
 struct primary {
     std::string name;
     bool selected;
-    bool owned;
     int damage;
     int cooldown;
+    int maxDura;
+    int dura;
 };

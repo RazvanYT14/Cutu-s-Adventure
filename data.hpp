@@ -4,6 +4,7 @@
 #include "fstream"
 #include "windows.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 #include <array>
 #include <cmath>
@@ -22,9 +23,11 @@
 #include "Dummy.hpp"
 #include "Barrel.hpp"
 
+#define scInt(x) static_cast<int>(x)
+
 struct Button;
 
-inline float px=12, py=12;
+inline float px=7, py=18;
 
 inline float vx = 0.0f;
 inline float vy = 0.0f;
@@ -49,6 +52,7 @@ enum class VisWeapon {
     Shuriken,
     Spear,
     Sword,
+    Scythe,
     None
 };
 
@@ -73,6 +77,7 @@ inline settingsStateMachine settingsState = settingsStateMachine::None;
 inline std::string currentWeaponName = "None";
 
 inline sf::Clock menuClock;
+inline sf::Clock attackClock;
 
 inline bool isFlying = false;
 inline sf::Vector2f velocity{0.f, 0.f};
@@ -92,8 +97,9 @@ inline std::vector<secondary> throwables {
 };
 
 inline std::vector<primary> melees {
-    {"Spear", false, true, 5, 200},
-    {"Sword", true, true, 10, 300}
+    {"Spear", false, 5, 200, 200, 0},
+    {"Sword", true, 10, 300, 150, 150},
+    {"Scythe", false, 25, 500, 300, 0}
 };
 
 

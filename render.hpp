@@ -1,11 +1,14 @@
 #pragma once
 #include "tilemap.hpp"
 #include "data.hpp"
+#include "animation.hpp"
+#include "Blacksmith.hpp"
 
 void groundRender(
     sf::RenderWindow& window,
     char groundMap[N][N],
     tileTypes& t,
+    float& dt,
     sf::View& view
 ) {
         sf::Vector2f viewSize = view.getSize();
@@ -223,13 +226,65 @@ void groundRender(
                     t.ShadedGrass25.setPosition(sf::Vector2f({rx * 40.0f, ry * 40.0f}));
                     window.draw(t.ShadedGrass25);
                 }
+                else if (groundMap[ry][rx] == PATH1) {
+                    t.Path1.setPosition(sf::Vector2f({rx * 40.0f, ry * 40.0f}));
+                    window.draw(t.Path1);
+                }
+                else if (groundMap[ry][rx] == PATH2) {
+                    t.Path2.setPosition(sf::Vector2f({rx * 40.0f, ry * 40.0f}));
+                    window.draw(t.Path2);
+                }
+                else if (groundMap[ry][rx] == PATH3) {
+                    t.Path3.setPosition(sf::Vector2f({rx * 40.0f, ry * 40.0f}));
+                    window.draw(t.Path3);
+                }
+                else if (groundMap[ry][rx] == PATH4) {
+                    t.Path4.setPosition(sf::Vector2f({rx * 40.0f, ry * 40.0f}));
+                    window.draw(t.Path4);
+                }
+                else if (groundMap[ry][rx] == PATH5) {
+                    t.Path5.setPosition(sf::Vector2f({rx * 40.0f, ry * 40.0f}));
+                    window.draw(t.Path5);
+                }
+                else if (groundMap[ry][rx] == PATH6) {
+                    t.Path6.setPosition(sf::Vector2f({rx * 40.0f, ry * 40.0f}));
+                    window.draw(t.Path6);
+                }
+                else if (groundMap[ry][rx] == PATH7) {
+                    t.Path7.setPosition(sf::Vector2f({rx * 40.0f, ry * 40.0f}));
+                    window.draw(t.Path7);
+                }
+                else if (groundMap[ry][rx] == PATH8) {
+                    t.Path8.setPosition(sf::Vector2f({rx * 40.0f, ry * 40.0f}));
+                    window.draw(t.Path8);
+                }
+                else if (groundMap[ry][rx] == PATH9) {
+                    t.Path9.setPosition(sf::Vector2f({rx * 40.0f, ry * 40.0f}));
+                    window.draw(t.Path9);
+                }
+                else if (groundMap[ry][rx] == PATH10) {
+                    t.Path10.setPosition(sf::Vector2f({rx * 40.0f, ry * 40.0f}));
+                    window.draw(t.Path10);
+                }
+                else if (groundMap[ry][rx] == PATH11) {
+                    t.Path11.setPosition(sf::Vector2f({rx * 40.0f, ry * 40.0f}));
+                    window.draw(t.Path11);
+                }
+                else if (groundMap[ry][rx] == PATH12) {
+                    t.Path12.setPosition(sf::Vector2f({rx * 40.0f, ry * 40.0f}));
+                    window.draw(t.Path12);
+                }
+                else if (groundMap[ry][rx] == PATH13) {
+                    t.Path13.setPosition(sf::Vector2f({rx * 40.0f, ry * 40.0f}));
+                    window.draw(t.Path13);
+                }
             }
         }
 }
 
 void propsRender(sf::RenderWindow& window, char propsMap[N][N], sf::View& view,
                  tileTypes& t , sf::RectangleShape& weaponHitbox,
-                 bool& isAttacking, sf::Sprite& shuriken) {
+                 bool& isAttacking, float& dt, sf::Sprite& shuriken, sf::View& guiView) {
 
     sf::Vector2f viewSize = view.getSize();
     sf::Vector2f viewCenter = view.getCenter();
@@ -256,6 +311,10 @@ void propsRender(sf::RenderWindow& window, char propsMap[N][N], sf::View& view,
                 getDestroyed(t.Barrel, weaponHitbox, isAttacking, shuriken, rx, ry);
 
                 window.draw(t.Barrel);
+            }
+            else if(propsMap[ry][rx] == BLACKSMITH) {
+                t.Blacksmith.setPosition(sf::Vector2f({rx * 40.0f, ry * 40.0f}));
+                window.draw(t.Blacksmith);
             }
         }
     }

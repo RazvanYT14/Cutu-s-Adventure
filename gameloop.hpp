@@ -8,18 +8,71 @@
 #include "guiRender.hpp"
 #include "tilemap.hpp"
 #include "animation.hpp"
-#include "memory"
+#include <memory>
+#include "SoundEngine.hpp"
 
-inline void meleeActivation(std::optional<sf::Event>& event, sf::Sprite& equippedWeapon, const sf::Texture& equippedSpear, const sf::Texture& equippedSword, sf::Clock& menuClock, sf::RenderWindow& window, const sf::View& guiView, const sf::Sprite& player, const sf::Texture& equippedFists) {
+inline void meleeActivation(std::optional<sf::Event>& event, sf::Sprite& equippedWeapon, const sf::Texture& equippedSpear,
+                            const sf::Texture& equippedSword, const sf::Texture& equippedScythe, sf::Clock& attackClock, sf::RenderWindow& window,
+                            const sf::View& guiView, const sf::Sprite& player, const sf::Texture& equippedFists) {
 
     int delay = 300;
     if(melees[0].selected) { delay = melees[0].cooldown; }
     if(melees[1].selected) { delay = melees[1].cooldown; }
+    if(melees[2].selected) { delay = melees[2].cooldown; }
 
-    if (menuClock.getElapsedTime() < sf::milliseconds(delay)) {
+    if (attackClock.getElapsedTime() < sf::milliseconds(delay)) {
         sf::Angle currentAngle = equippedWeapon.getRotation();
         sf::Vector2f attackDir(std::cos(currentAngle.asRadians()), std::sin(currentAngle.asRadians()));
         equippedWeapon.setPosition(player.getPosition() + (attackDir * 30.f));
+
+        if(melees[1].selected) {
+            s.slash.setVolume(80.f);
+
+            static bool startedSlashing = true;
+
+            if (startedSlashing) {
+                float randomPitch = (minp + (rand() % (maxp - minp + 1))) / 100.0f;
+                s.slash.setPitch(randomPitch);
+                s.slash.play();
+
+                startedSlashing = false;
+            }
+            if (s.slash.getStatus() == sf::Sound::Status::Stopped) {
+                startedSlashing = true;
+            }
+        }
+        else if(melees[0].selected) {
+            s.jab.setVolume(80.f);
+
+            static bool startedJabbing = true;
+
+            if (startedJabbing) {
+                float randomPitch = (minp + (rand() % (maxp - minp + 1))) / 100.0f;
+                s.jab.setPitch(randomPitch);
+                s.jab.play();
+
+                startedJabbing = false;
+            }
+            if (s.jab.getStatus() == sf::Sound::Status::Stopped) {
+                startedJabbing = true;
+            }
+        }
+        else if(melees[2].selected) {
+            s.slash.setVolume(80.f);
+
+            static bool startedSlashing = true;
+
+            if (startedSlashing) {
+                float randomPitch = (minp + (rand() % (maxp - minp + 1))) / 100.0f;
+                s.slash.setPitch(randomPitch);
+                s.slash.play();
+
+                startedSlashing = false;
+            }
+            if (s.slash.getStatus() == sf::Sound::Status::Stopped) {
+                startedSlashing = true;
+            }
+        }
     }
     else {
         if (&equippedWeapon.getTexture() != &equippedFists) {
@@ -39,7 +92,7 @@ inline void meleeActivation(std::optional<sf::Event>& event, sf::Sprite& equippe
     if (const auto* mouseButtonEvent = event->getIf<sf::Event::MouseButtonPressed>()) {
         if (mouseButtonEvent->button == sf::Mouse::Button::Left && !inInv) {
 
-            if (menuClock.getElapsedTime() >= sf::milliseconds(delay)) {
+            if (attackClock.getElapsedTime() >= sf::milliseconds(delay)) {
 
                 sf::Vector2f clickDir = window.mapPixelToCoords(sf::Mouse::getPosition(window)) - player.getPosition();
                 if (clickDir != sf::Vector2f(0.f, 0.f)) {
@@ -49,16 +102,20 @@ inline void meleeActivation(std::optional<sf::Event>& event, sf::Sprite& equippe
 
                 if(melees[0].selected) { equippedWeapon.setTexture(equippedSpear); }
                 if(melees[1].selected) { equippedWeapon.setTexture(equippedSword); }
+                if(melees[2].selected) { equippedWeapon.setTexture(equippedScythe); }
 
-                isAttacking = true;
+                if(melees[0].selected && melees[0].dura>0) { isAttacking = true; } else if(melees[0].selected && melees[0].dura<=0){ isAttacking = false; }
+                if(melees[1].selected && melees[1].dura>0) { isAttacking = true; } else if(melees[1].selected && melees[1].dura<=0){ isAttacking = false; }
+                if(melees[2].selected && melees[2].dura>0) { isAttacking = true; } else if(melees[2].selected && melees[2].dura<=0){ isAttacking = false; }
 
-                menuClock.restart();
+                attackClock.restart();
             }
         }
     }
 }
 
-inline void secondaryActivation(std::optional<sf::Event>& event, sf::RenderWindow& window, sf::View& view, sf::Sprite& shuriken, sf::Sprite& equippedWeapon, const sf::Texture& equippedShuriken) {
+inline void secondaryActivation(std::optional<sf::Event>& event, sf::RenderWindow& window, sf::View& view,
+                                sf::Sprite& shuriken, sf::Sprite& equippedWeapon, const sf::Texture& equippedShuriken) {
     if (const auto* mouseButtonEvent = event->getIf<sf::Event::MouseButtonPressed>()) {
         if(throwables[0].selected && !isFlying && throwables[0].c>0) {
             if (mouseButtonEvent->button == sf::Mouse::Button::Right) {
@@ -77,6 +134,13 @@ inline void secondaryActivation(std::optional<sf::Event>& event, sf::RenderWindo
                     isFlying = true;
                 }
                 throwables[0].c--;
+
+                s.throwShuriken.setVolume(50.f);
+
+                float randomPitch = (minp + (rand() % (maxp - minp + 1))) / 100.0f;
+                s.throwShuriken.setPitch(randomPitch);
+                s.throwShuriken.play();
+
             }
         }
     }
@@ -88,7 +152,7 @@ inline void start() {
 
     sf::VideoMode gameMode({800, 450});
 
-    window.create(gameMode, "Cutu's Adventure", sf::State::Windowed);
+    window.create(gameMode, "Cutu's Adventure", sf::State::Fullscreen);
     sf::Image icon;
     if(icon.loadFromFile("assets/icon.png")) {}
     window.setIcon(icon);
@@ -106,12 +170,14 @@ inline void start() {
 
     sf::Texture spearTEX("assets/spearTEX.png");
     sf::Texture swordTEX("assets/swordTEX.png");
+    sf::Texture scytheTEX("assets/scytheTEX.png");
     sf::Texture shurikenTEX("assets/shurikenTEX.png");
 
-    const sf::Texture equippedShuriken("assets/equippedShuriken.png");
-    const sf::Texture equippedSpear("assets/equippedSpear.png");
-    const sf::Texture equippedSword("assets/equippedSword.png");
-    const sf::Texture equippedFists("assets/equippedFists.png");
+    sf::Texture equippedShuriken("assets/equippedShuriken.png");
+    sf::Texture equippedSpear("assets/equippedSpear.png");
+    sf::Texture equippedSword("assets/equippedSword.png");
+    sf::Texture equippedFists("assets/equippedFists.png");
+    sf::Texture equippedScythe("assets/equippedScythe.png");
 
     sf::Sprite shuriken(equippedShuriken);
     shuriken.setScale({0.5f, 0.5f});
@@ -231,6 +297,7 @@ inline void start() {
 
     Button SpearBUT(spearTEX,885.f,300.f,{3.f,3.f});
     Button SwordBUT(swordTEX,760.f,300.f,{3.f,3.f});
+    Button ScytheBUT(scytheTEX,1010.f,300.f,{3.f,3.f});
 
     Button ShurikenBUT(shurikenTEX,760.f,300.f,{3.f,3.f});
 
@@ -244,6 +311,10 @@ inline void start() {
     weaponHitbox.setOrigin({20.f,20.f});
     weaponHitbox.setSize({40.f,40.f});
     weaponHitbox.setFillColor(sf::Color(255,0,0,125));
+
+    Button SwordGetBut(swordTEX, 250.f, 110.f, {3.f,3.f});
+    Button SpearGetBut(spearTEX, 420.f, 110.f, {3.f,3.f});
+    Button ScytheGetBut(scytheTEX, 250.f, 250.f, {3.f,3.f});
 
     while (window.isOpen()) {
 
@@ -285,9 +356,14 @@ inline void start() {
 
             SpearBUT.handleEvent(*event, inputGuiPos);
             SwordBUT.handleEvent(*event, inputGuiPos);
+            ScytheBUT.handleEvent(*event, inputGuiPos);
 
             primaryBUT.handleEvent(*event, inputGuiPos);
             secondaryBUT.handleEvent(*event, inputGuiPos);
+
+            SwordGetBut.handleEvent(*event, inputGuiPos);
+            SpearGetBut.handleEvent(*event, inputGuiPos);
+            ScytheGetBut.handleEvent(*event, inputGuiPos);
 
             if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
                 if (keyPressed->code == sf::Keyboard::Key::Escape) {
@@ -304,7 +380,7 @@ inline void start() {
             }
 
 
-            meleeActivation(event, equippedWeapon, equippedSpear, equippedSword, menuClock, window, guiView, player, equippedFists);
+            meleeActivation(event, equippedWeapon, equippedSpear, equippedSword, equippedScythe, attackClock, window, guiView, player, equippedFists);
             secondaryActivation(event, window, view, shuriken, equippedWeapon, equippedShuriken);
 
             std::optional<sf::Event> noEvent = std::nullopt;
@@ -314,6 +390,11 @@ inline void start() {
 
         if(dt>0.1f) { dt=0.1f; }
 
+        for(int i = 0; i<melees.size(); i++) {
+            if(melees[i].dura<=0 && melees[i].selected) melees[i].selected=false;
+        }
+
+
         if(guiState==guiStateMachine::None) { guiStateText.setString(" "); }
         else if(guiState==guiStateMachine::Equipment) { guiStateText.setString("Equipment"); }
         else if(guiState==guiStateMachine::Settings) { guiStateText.setString("Settings"); }
@@ -321,7 +402,7 @@ inline void start() {
         if(settingsState==settingsStateMachine::None) { settingsStateText.setString(" "); }
 
         //MOVEMENT
-        movementSystem(wasMoving,vy,vx,ACCELERATION,menuClock,rolling,player,playerTEX,isMoving, rollVAdd, dt);
+        movementSystem(wasMoving,vy,vx,ACCELERATION,menuClock,rolling,player,playerTEX,isMoving, rollVAdd, dt, s, maxp, minp);
 
 
         if (isFlying) {
@@ -343,8 +424,37 @@ inline void start() {
         if(playerHP==0) { healthBar.setTexture(healthBarTEX0); }
 
         if(ShurikenBUT.isClicked() && sSel) { currentWeapon=VisWeapon::Shuriken; secondaryBUT.m_sprite.setTexture(shurikenTEX); throwables[0].selected=true; }
-        if(SpearBUT.isClicked() && pSel) { currentWeapon=VisWeapon::Spear; primaryBUT.m_sprite.setTexture(spearTEX); melees[0].selected=true; melees[1].selected=false; }
-        if(SwordBUT.isClicked() && pSel) { currentWeapon=VisWeapon::Sword; primaryBUT.m_sprite.setTexture(swordTEX); melees[1].selected=true; melees[0].selected=false; }
+
+        if(SpearBUT.isClicked() && pSel) {
+            currentWeapon=VisWeapon::Spear;
+            primaryBUT.m_sprite.setTexture(spearTEX);
+            melees[0].selected=true;
+            for(int i=0; i<melees.size(); i++) {
+                if(melees[i].selected && melees[i].name!="Spear") {
+                    melees[i].selected=false;
+                }
+            }
+        }
+        if(SwordBUT.isClicked() && pSel) {
+            currentWeapon=VisWeapon::Sword;
+            primaryBUT.m_sprite.setTexture(swordTEX);
+            melees[1].selected=true;
+            for(int i=0; i<melees.size(); i++) {
+                if(melees[i].selected && melees[i].name!="Sword") {
+                    melees[i].selected=false;
+                }
+            }
+        }
+        if(ScytheBUT.isClicked() && pSel) {
+            currentWeapon=VisWeapon::Scythe;
+            primaryBUT.m_sprite.setTexture(scytheTEX);
+            melees[2].selected=true;
+            for(int i=0; i<melees.size(); i++) {
+                if(melees[i].selected && melees[i].name!="Scythe") {
+                    melees[i].selected=false;
+                }
+            }
+        }
 
         if(primaryBUT.isClicked()) {
             pSel = !pSel;
@@ -352,6 +462,15 @@ inline void start() {
         if(secondaryBUT.isClicked()) {
             sSel = !sSel;
         }
+
+
+        if(SwordGetBut.isClicked()) { melees[1].dura=melees[1].maxDura; }
+        if(SpearGetBut.isClicked()) { melees[0].dura=melees[0].maxDura; }
+        if(ScytheGetBut.isClicked()) { melees[2].dura=melees[2].maxDura; }
+
+
+
+
 
         if(!isAnyPrimarySelected() && !isAnySecondarySelected() ) {
             equippedWeapon.setTexture(equippedFists);
@@ -479,8 +598,22 @@ inline void start() {
 
         // RENDER
 
-        groundRender(window, groundMap, t, view);
-        propsRender(window, propsMap, view, t, weaponHitbox, isAttacking, shuriken);
+        groundRender(window, groundMap, t, dt, view);
+        propsRender(window, propsMap, view, t, weaponHitbox, isAttacking, dt, shuriken, guiView);
+
+        if(animations) {
+            Water0a.play(t.Water,dt);
+            Water1a.play(t.Water1,dt);
+            Water2a.play(t.Water2,dt);
+            Water3a.play(t.Water3,dt);
+            Water4a.play(t.Water4,dt);
+            Water5a.play(t.Water5,dt);
+            Water6a.play(t.Water6,dt);
+            Water7a.play(t.Water7,dt);
+            Water8a.play(t.Water8,dt);
+            bushAnim.play(t.Bush,dt);
+        }
+        bsIdle.play(t.Blacksmith,dt);
 
         window.setView(view);
 
@@ -495,13 +628,15 @@ inline void start() {
 
         window.setView(guiView);
 
+        blacksmithDetection(px,py,propsMap,window,f,SwordGetBut,SpearGetBut,ScytheGetBut);
+
         window.draw(healthBar);
 
         RenderGUI(window, inInv, currentWeapon, guiState, settingsState,
                   zoomFactor, selWeaponName, selWeaponCount, selWeaponDamage, throwables,
                   animations, melees, inventoryBACKGROUND, guiTOP, guiStateText,
                   settingsStateText, primaryBUT, secondaryBUT, ExitBUT, pSel,
-                  sSel, Arrow, SwordBUT, SpearBUT, ShurikenBUT, invBUT);
+                  sSel, Arrow, SwordBUT, SpearBUT, ScytheBUT, ShurikenBUT, invBUT);
 
         window.setView(view);
 

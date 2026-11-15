@@ -27,6 +27,7 @@ void RenderGUI(
     sf::Sprite& Arrow,
     Button& SwordBUT,
     Button& SpearBUT,
+    Button& ScytheBUT,
     Button& ShurikenBUT,
     Button& invBUT
 ) {
@@ -67,15 +68,21 @@ void RenderGUI(
                 selWeaponCount.setString("Count: "+std::to_string(throwables[0].c));
                 selWeaponDamage.setString("Damage: "+std::to_string(throwables[0].damage));
             }
+
             if(currentWeapon==VisWeapon::Spear) {
                 selWeaponName.setString("Name: Spear");
-                selWeaponCount.setString("OWNED");
+                selWeaponCount.setString("Durability: "+std::to_string(melees[0].dura*100/melees[0].maxDura)+"%");
                 selWeaponDamage.setString("Damage: "+std::to_string(melees[0].damage));
             }
             if(currentWeapon==VisWeapon::Sword) {
                 selWeaponName.setString("Name: Sword");
-                selWeaponCount.setString("OWNED");
+                selWeaponCount.setString("Durability: "+std::to_string(melees[1].dura*100/melees[1].maxDura)+"%");
                 selWeaponDamage.setString("Damage: "+std::to_string(melees[1].damage));
+            }
+            if(currentWeapon==VisWeapon::Scythe) {
+                selWeaponName.setString("Name: Scythe");
+                selWeaponCount.setString("Durability: "+std::to_string(melees[2].dura*100/melees[2].maxDura)+"%");
+                selWeaponDamage.setString("Damage: "+std::to_string(melees[2].damage));
             }
 
             settingsState = settingsStateMachine::None;
@@ -95,8 +102,9 @@ void RenderGUI(
 
             if(pSel) {
                 sSel=false;
-                SwordBUT.draw(window);
-                SpearBUT.draw(window);
+                if(melees[1].dura>0) SwordBUT.draw(window);
+                if(melees[0].dura>0) SpearBUT.draw(window);
+                if(melees[2].dura>0) ScytheBUT.draw(window);
             }
             else if(sSel) {
                 pSel=false;

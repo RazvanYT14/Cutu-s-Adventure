@@ -869,20 +869,22 @@
 1787763834 source:f:\mymobilegame\game.cpp
 	"gameloop.hpp"
 
-1793921006 f:\mymobilegame\gameloop.hpp
+1794730854 f:\mymobilegame\gameloop.hpp
 	"data.hpp"
 	"Button.hpp"
 	"render.hpp"
 	"guiRender.hpp"
 	"tilemap.hpp"
 	"animation.hpp"
-	"memory"
+	<memory>
+	"SoundEngine.hpp"
 
-1793921162 f:\mymobilegame\data.hpp
+1794729776 f:\mymobilegame\data.hpp
 	"iostream"
 	"fstream"
 	"windows.h"
 	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
 	<vector>
 	<array>
 	<cmath>
@@ -904,7 +906,7 @@
 	"data.hpp"
 	"Button.hpp"
 
-1788707304 f:\mymobilegame\primary.hpp
+1794157770 f:\mymobilegame\primary.hpp
 
 1788107484 f:\mymobilegame\secondary.hpp
 
@@ -912,9 +914,11 @@
 
 1786197428 source:f:\mymobilegame\weaponactivation.cpp
 
-1793823244 f:\mymobilegame\tilemap.hpp
+1794728136 f:\mymobilegame\tilemap.hpp
 	<fstream>
 	<SFML/Graphics.hpp>
+	<vector>
+	"Barrel.hpp"
 
 1787252500 f:\mymobilegame\imgui\imgui-sfml.h
 	<SFML/Graphics/Color.hpp>
@@ -1083,25 +1087,28 @@
 	<cmath>
 	"tilemap.hpp"
 
-1793917680 f:\mymobilegame\movement.hpp
+1794087320 f:\mymobilegame\movement.hpp
 	"animation.hpp"
+	"SoundEngine.hpp"
 
-1793915498 f:\mymobilegame\render.hpp
+1794729748 f:\mymobilegame\render.hpp
 	"tilemap.hpp"
 	"data.hpp"
+	"animation.hpp"
+	"Blacksmith.hpp"
 
-1793825388 f:\mymobilegame\guirender.hpp
+1794646066 f:\mymobilegame\guirender.hpp
 	"Button.hpp"
 	"data.hpp"
 
 1793823050 f:\mymobilegame\dummy.hpp
 	<SFML/Graphics.hpp>
 
-1793215692 source:f:\mymobilegame\dummy.cpp
+1794158360 source:f:\mymobilegame\dummy.cpp
 	"Dummy.hpp"
 	"data.hpp"
 
-1793918448 f:\mymobilegame\animation.hpp
+1794643814 f:\mymobilegame\animation.hpp
 	<SFML/Graphics.hpp>
 	<vector>
 	<algorithm>
@@ -1618,12 +1625,164 @@
 1793738764 d:\sfml-3.0.2\include\sfml\system\sleep.hpp
 	<SFML/System/Export.hpp>
 
-1793823448 f:\mymobilegame\barrel.hpp
+1793998120 f:\mymobilegame\barrel.hpp
 	<SFML/Graphics.hpp>
 
-1793823472 source:f:\mymobilegame\barrel.cpp
+1794157846 source:f:\mymobilegame\barrel.cpp
 	"Barrel.hpp"
 	"data.hpp"
 
 1793893188 source:f:\mymobilegame\resource.rc
+
+1793738762 d:\sfml-3.0.2\include\sfml\audio.hpp
+	<SFML/Audio/InputSoundFile.hpp>
+	<SFML/Audio/Listener.hpp>
+	<SFML/Audio/Music.hpp>
+	<SFML/Audio/OutputSoundFile.hpp>
+	<SFML/Audio/PlaybackDevice.hpp>
+	<SFML/Audio/Sound.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundBufferRecorder.hpp>
+	<SFML/Audio/SoundFileFactory.hpp>
+	<SFML/Audio/SoundFileReader.hpp>
+	<SFML/Audio/SoundFileWriter.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/Audio/SoundStream.hpp>
+	<SFML/System.hpp>
+
+1793738762 d:\sfml-3.0.2\include\sfml\audio\inputsoundfile.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundFileReader.hpp>
+	<filesystem>
+	<memory>
+	<vector>
+	<cstddef>
+	<cstdint>
+
+1793738762 d:\sfml-3.0.2\include\sfml\audio\export.hpp
+	<SFML/Config.hpp>
+
+1793738762 d:\sfml-3.0.2\include\sfml\audio\soundfilereader.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundChannel.hpp>
+	<optional>
+	<vector>
+	<cstdint>
+
+1793738762 d:\sfml-3.0.2\include\sfml\audio\soundchannel.hpp
+
+1793738762 d:\sfml-3.0.2\include\sfml\audio\listener.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/Angle.hpp>
+	<SFML/System/Vector3.hpp>
+
+1793738762 d:\sfml-3.0.2\include\sfml\audio\music.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundStream.hpp>
+	<filesystem>
+	<memory>
+	<optional>
+	<cstddef>
+	<cstdint>
+
+1793738763 d:\sfml-3.0.2\include\sfml\audio\soundstream.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundChannel.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Time.hpp>
+	<memory>
+	<optional>
+	<vector>
+	<cstddef>
+	<cstdint>
+
+1793738762 d:\sfml-3.0.2\include\sfml\audio\soundsource.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AudioResource.hpp>
+	<SFML/System/Angle.hpp>
+	<SFML/System/Vector3.hpp>
+	<functional>
+
+1793738762 d:\sfml-3.0.2\include\sfml\audio\audioresource.hpp
+	<SFML/Audio/Export.hpp>
+	<memory>
+
+1793738762 d:\sfml-3.0.2\include\sfml\audio\outputsoundfile.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundChannel.hpp>
+	<SFML/Audio/SoundFileWriter.hpp>
+	<filesystem>
+	<memory>
+	<vector>
+	<cstdint>
+
+1793738762 d:\sfml-3.0.2\include\sfml\audio\soundfilewriter.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundChannel.hpp>
+	<filesystem>
+	<vector>
+	<cstdint>
+
+1793738762 d:\sfml-3.0.2\include\sfml\audio\playbackdevice.hpp
+	<SFML/Audio/Export.hpp>
+	<optional>
+	<string>
+	<vector>
+
+1793738762 d:\sfml-3.0.2\include\sfml\audio\sound.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<memory>
+	<cstdlib>
+
+1793738762 d:\sfml-3.0.2\include\sfml\audio\soundbuffer.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundChannel.hpp>
+	<SFML/System/Time.hpp>
+	<filesystem>
+	<unordered_set>
+	<vector>
+	<cstddef>
+	<cstdint>
+
+1793738762 d:\sfml-3.0.2\include\sfml\audio\soundbufferrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<vector>
+	<cstddef>
+	<cstdint>
+
+1793738762 d:\sfml-3.0.2\include\sfml\audio\soundrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundChannel.hpp>
+	<memory>
+	<string>
+	<vector>
+	<cstddef>
+	<cstdint>
+
+1793738762 d:\sfml-3.0.2\include\sfml\audio\soundfilefactory.hpp
+	<SFML/Audio/Export.hpp>
+	<filesystem>
+	<memory>
+	<unordered_map>
+	<cstddef>
+	<SFML/Audio/SoundFileFactory.inl>
+
+1793738762 d:\sfml-3.0.2\include\sfml\audio\soundfilefactory.inl
+	<SFML/Audio/SoundFileFactory.hpp>
+	<memory>
+
+1794087320 f:\mymobilegame\soundengine.hpp
+	"data.hpp"
+
+1794728136 f:\mymobilegame\blacksmith.hpp
+	"data.hpp"
+
+1794728136 source:f:\mymobilegame\blacksmith.cpp
+	"Blacksmith.hpp"
+	<SFML/Graphics.hpp>
+	"Button.hpp"
 
