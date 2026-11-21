@@ -22,6 +22,9 @@ struct soundTypes {
 
     sf::SoundBuffer rollBuff{"soundAssets/roll.ogg"};
     sf::Sound roll{rollBuff};
+
+    sf::SoundBuffer swimBuff{"soundAssets/swim.ogg"};
+    sf::Sound playerSwimming{swimBuff};
 };
 
 inline soundTypes s;

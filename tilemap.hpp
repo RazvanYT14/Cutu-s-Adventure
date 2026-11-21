@@ -5,7 +5,7 @@
 #include <vector>
 #include "Barrel.hpp"
 
-const int N = 25;
+const int N = 35;
 
 inline char groundMap[N][N];
 inline char propsMap[N][N];

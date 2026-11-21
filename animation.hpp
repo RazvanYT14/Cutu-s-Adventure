@@ -57,3 +57,6 @@ inline Animation barrelBreak(5,{"assets/PropsAnim/Barrel/BarrelBreak1.png",
                                 "assets/PropsAnim/Barrel/BarrelBreak5.png"},0.5f);
 
 inline Animation bsIdle(2,{"assets/BlackSmithIdle/bsIdle1.png","assets/BlackSmithIdle/bsIdle2.png"},1.f);
+
+inline Animation swimIdle(2,{"assets/swimIdle/swimIdle1.png","assets/swimIdle/swimIdle2.png"},1.f);
+inline Animation swim(2,{"assets/Swim/swimIdle1.png","assets/Swim/swimIdle2.png"},1.f);

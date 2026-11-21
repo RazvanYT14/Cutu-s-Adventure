@@ -27,12 +27,12 @@
 
 struct Button;
 
-inline float px=7, py=18;
+inline float px=8, py=8;
 
 inline float vx = 0.0f;
 inline float vy = 0.0f;
 inline float ACCELERATION = 0.6f;
-inline const float FRICTION = 0.77f;
+inline float FRICTION = 0.77f;
 
 inline std::string username;
 
@@ -131,4 +131,4 @@ inline bool rolling = false;
 
 inline sf::Clock deltaClock;
 
-
+inline bool inWater = false;

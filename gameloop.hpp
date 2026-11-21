@@ -402,7 +402,7 @@ inline void start() {
         if(settingsState==settingsStateMachine::None) { settingsStateText.setString(" "); }
 
         //MOVEMENT
-        movementSystem(wasMoving,vy,vx,ACCELERATION,menuClock,rolling,player,playerTEX,isMoving, rollVAdd, dt, s, maxp, minp);
+        movementSystem(wasMoving,vy,vx,ACCELERATION,menuClock,rolling,player,playerTEX,isMoving, rollVAdd, dt, s, maxp, minp, inWater);
 
 
         if (isFlying) {
@@ -513,12 +513,6 @@ inline void start() {
 
         // MOVEMENT
 
-        if(GetAsyncKeyState(VK_LSHIFT) & 0x8000) {
-            ACCELERATION=0.65f;
-        } else {
-            ACCELERATION=0.6f;
-        }
-
         vx *= FRICTION;
         vy *= FRICTION;
 
@@ -535,15 +529,6 @@ inline void start() {
            groundMap[tileY][tileX] == WALL2 ||
            groundMap[tileY][tileX] == WALL3 ||
            groundMap[tileY][tileX] == SPIKES ||
-           groundMap[tileY][tileX] == WATER ||
-           groundMap[tileY][tileX] == WATER1 ||
-           groundMap[tileY][tileX] == WATER2 ||
-           groundMap[tileY][tileX] == WATER3 ||
-           groundMap[tileY][tileX] == WATER4 ||
-           groundMap[tileY][tileX] == WATER5 ||
-           groundMap[tileY][tileX] == WATER6 ||
-           groundMap[tileY][tileX] == WATER7 ||
-           groundMap[tileY][tileX] == WATER8 ||
            groundMap[tileY][tileX] == SHADEDGRASS1 ||
            groundMap[tileY][tileX] == SHADEDGRASS2 ||
            groundMap[tileY][tileX] == SHADEDGRASS3 ||
@@ -580,6 +565,14 @@ inline void start() {
             px = nextX;
             py = nextY;
         }
+
+        if(groundMap[scInt(py)][scInt(px)]==WATER  || groundMap[scInt(py)][scInt(px)]==WATER1 ||
+            groundMap[scInt(py)][scInt(px)]==WATER2 || groundMap[scInt(py)][scInt(px)]==WATER3 ||
+            groundMap[scInt(py)][scInt(px)]==WATER4  || groundMap[scInt(py)][scInt(px)]==WATER5 ||
+            groundMap[scInt(py)][scInt(px)]==WATER6 || groundMap[scInt(py)][scInt(px)]==WATER7 ||
+            groundMap[scInt(py)][scInt(px)]==WATER8) { inWater=true; FRICTION=0.65; }
+        else { inWater=false; FRICTION=0.77;  }
+
 
         if (px < 0.0f) { px = 0.0f; vx = 0.0f; }
         if (px > (float)N - 1.0f) { px = (float)N - 1.0f; vx = 0.0f; }

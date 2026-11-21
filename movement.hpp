@@ -7,7 +7,7 @@ inline void movementSystem(bool& wasMoving, float& vy,
                     sf::Clock& menuClock,
                     bool& rolling, sf::Sprite& player,
                     sf::Texture& playerTEX, bool& isMoving, const float& rollVAdd, float& dt,
-                    soundTypes& s, int& maxp, int& minp ) {
+                    soundTypes& s, int& maxp, int& minp, bool& inWater) {
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) ) {  vy -= ACCELERATION*dt; }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) ) {  vy += ACCELERATION*dt; }
@@ -20,7 +20,7 @@ inline void movementSystem(bool& wasMoving, float& vy,
         sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) ) { isMoving = true;} else { isMoving=false; }
 
     //ROLLING
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && !inWater) {
         if(!rolling) {
             rolling = true;
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) vy-=rollVAdd*dt;
@@ -39,9 +39,10 @@ inline void movementSystem(bool& wasMoving, float& vy,
         wasMoving = isMoving;
     }
 
-    if (!isMoving) {
+    if (!isMoving && !inWater) {
         idle.play(player,dt);
-    } else if(isMoving && !rolling) {
+    }
+    else if(isMoving && !rolling && !inWater) {
         run.play(player, dt);
 
         s.playerWalking.setVolume(5.f);
@@ -57,6 +58,28 @@ inline void movementSystem(bool& wasMoving, float& vy,
         }
         if (s.playerWalking.getStatus() == sf::Sound::Status::Stopped) {
             startedWalking = true;
+        }
+    }
+
+    if (!isMoving && inWater) {
+        swimIdle.play(player,dt);
+    }
+    else if(isMoving && !rolling && inWater) {
+        swim.play(player, dt);
+
+        s.playerSwimming.setVolume(50.f);
+
+        static bool startedSwimming = true;
+
+        if (startedSwimming) {
+            float randomPitch = (minp + (rand() % (maxp - minp + 1))) / 100.0f;
+            s.playerSwimming.setPitch(randomPitch);
+            s.playerSwimming.play();
+
+            startedSwimming = false;
+        }
+        if (s.playerSwimming.getStatus() == sf::Sound::Status::Stopped) {
+            startedSwimming = true;
         }
     }
     if (rolling) {
